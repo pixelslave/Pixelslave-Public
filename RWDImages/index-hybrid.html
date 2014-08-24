@@ -48,7 +48,12 @@ $(document).ready(function(){
             }
 
             imgName = $(This).data('image-name');
-            imgExt = $(This).data('image-ext');
+             if ($(This).attr('data-image-ext')){
+                imgExt = $(This).data('image-ext');
+            }
+            else {
+            imgExt = 'jpg';
+            }
             theSrc = imgPath+imgName+rwdSize+'.'+imgExt;
 		$(This).attr('src',theSrc) ; //set the image
 
@@ -62,13 +67,13 @@ console.log('width: '+x+', height: '+y+', pixel density: '+dpr+', path: '+imgPat
 
 </script>
 <style>
-div,p{width:100%}
+div{width:100%}
 </style>
 </head>
 <body>
 <div>
 <img class="rwd-img" src="images/images2/blank.gif" width="100%" height="auto" alt="Photo of Paris featuring the Eiffel Tower" 
-data-image-name="paris-" data-image-ext="jpg"  data-image-path="images/"/>
+data-image-name="paris-" data-image-path="images/"/>
 </div>
 </body>
 </html>
