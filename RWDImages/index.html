@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html class="nojs">
+<head>
+<title>Image test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+document.documentElement.className = "js";
+
+$(document).ready(function(){
+    var theSrc,
+    theType,
+    y=screen.height,
+    x=screen.width,
+    dpr = window.devicePixelRatio,
+    rwdSize,
+    imgPath,imgName,imgExt;
+    
+    switch (true) {
+                case (x >1200 || (x >1024 && dpr >1)):
+                    rwdSize='xl';
+                    break;
+                case (x >1024 && x <=1200 || (x >768 && x <=1024 && dpr >1)):
+                    rwdSize='l';
+                    break;
+                case (x >768 && x <=1024 || (x >320 && x <=768 && dpr >1)):
+                    rwdSize='m';
+                    break;
+                    case (x >320 && x <=768 || (x <=320 && dpr >1)):
+                    rwdSize='s';
+                    break;
+                default:
+                    rwdSize='xs';
+            }
+
+         $('body').addClass(rwdSize);      
+    
+    $('.rwd-img').each(
+        function(){
+            var This = this;
+            theSrc = $(This).attr('src');
+            if ($(This).attr('data-image-path')){
+                imgPath = $(This).data('image-path');
+            }
+            else {
+            imgPath = theSrc.substring(0,theSrc.lastIndexOf('/') +1 );
+            }
+
+            imgName = $(This).data('image-name');
+             if ($(This).attr('data-image-ext')){
+                imgExt = $(This).data('image-ext');
+            }
+            else {
+            imgExt = 'jpg';
+            }
+            theSrc = imgPath+imgName+rwdSize+'.'+imgExt;
+        $(This).attr('src',theSrc) ; //set the image
+
+        });
+
+//For Testing & verification
+console.log('width: '+x+', height: '+y+', pixel density: '+dpr+', path: '+imgPath+', image: '+imgName+', size: '+rwdSize+', type: '+imgExt+', src: '+imgPath+imgName+rwdSize+'.'+imgExt);
+
+
+    });
+
+</script>
+<style>
+div{width:100%}
+</style>
+</head>
+<body>
+<div>
+    <p>Blank Gif Scheme</p>
+    <img class="rwd-img" src="images/images2/blank.gif" width="100%" height="auto" alt="Photo of Paris featuring the Eiffel Tower" 
+data-image-name="paris-" data-image-path="images/"/>
+<p>Default Image Scheme</p>
+<img class="rwd-img" src="images/images2/default.jpg" width="100%" height="auto" alt="Photo of Paris featuring the Eiffel Tower" 
+data-image-name="paris-" data-image-path="images/"/>
+</div>
+</body>
+</html>
