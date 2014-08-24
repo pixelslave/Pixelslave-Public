@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html class="nojs">
+<head>
+<title>Image test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+document.documentElement.className = "js";
+
+$(document).ready(function(){
+	var theSrc,
+	y=screen.height,
+	x=screen.width,
+	rwdimg,
+	rwdsize,
+	dpr = window.devicePixelRatio;
+	switch (true) {
+                case (x >1200 || (x >1024 && dpr >1)):
+                    rwdsize='xl';
+                    break;
+                case (x >1024 && x <=1200 || (x >768 && x <=1024 && dpr >1)):
+                    rwdsize='l';
+                    break;
+                case (x >768 && x <=1024 || (x >320 && x <=768 && dpr >1)):
+                    rwdsize='m';
+                    break;
+                    case (x >320 && x <=768 || (x <=320 && dpr >1)):
+                    rwdsize='s';
+                    break;
+                default:
+                    rwdsize='xs';
+            }
+
+         $('body').addClass(rwdsize);      
+	
+	$('.rwd-img').each(
+        function(){
+         theSrc = $(this).data('size-'+rwdsize); //get the image link
+		$(this).attr('src', theSrc); //set the image
+
+        });
+
+//For Testing & verification
+$('p').text('width: '+x+', height: '+y+', pixel density: '+dpr+', image: '+theSrc);
+
+
+	});
+
+</script>
+<style>
+div,p{width:100%}
+.nojs #img1{background:url(l.jpg);}
+</style>
+</head>
+<body>
+	<p></p>
+<div>
+<img id="img1" class="rwd-img" src="blank.gif" width="100%" height="auto" alt="Photo of Paris featuring the Eiffel Tower"
+data-size-xl="xl.jpg" 
+data-size-l="l.jpg" 
+data-size-m="m.jpg" 
+data-size-s="s.jpg" 
+data-size-xs="xs.jpg"
+/>
+</div>
+</body>
+</html>
