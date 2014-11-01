@@ -9,33 +9,34 @@
 document.documentElement.className = "js";
 
 $(document).ready(function(){
-    var theSrc,
+	var theSrc,
     theType,
-    y=screen.height,
-    x=screen.width,
+	y=screen.height,
+	x=screen.width,
     dpr = window.devicePixelRatio,
-    rwdSize,
+	rwdSize,
     imgPath,imgName,imgExt;
     
-    switch (true) {
-                case (x >1200):
+	switch (true) {
+                case (x >1200 || (x >1024 && dpr >1)):
                     rwdSize='xl';
                     break;
-                case (x >1024 && x <=1200):
+                case (x >1024 && x <=1200 || (x >768 && x <=1024 && dpr >1)):
                     rwdSize='l';
                     break;
-                case (x >768 && x <=1024):
+                case (x >768 && x <=1024 || (x >320 && x <=768 && dpr >1)):
                     rwdSize='m';
                     break;
-                    case (x <=768 ):
+                    case (x >320 && x <=768 || (x <=320 && dpr >1)):
                     rwdSize='s';
                     break;
                 default:
-                    rwdSize='s';
+                    rwdSize='xs';
             }
 
-         $('body').addClass(rwdSize);
-    $('.rwd-img').each(
+         $('body').addClass(rwdSize);      
+	
+	$('.rwd-img').each(
         function(){
             var This = this;
             theSrc = $(This).attr('src');
@@ -54,14 +55,15 @@ $(document).ready(function(){
             imgExt = 'jpg';
             }
             theSrc = imgPath+imgName+rwdSize+'.'+imgExt;
-        $(This).attr('src',theSrc) ; //set the image
+		$(This).attr('src',theSrc) ; //set the image
+
         });
 
 //For Testing & verification
-$('#p1').html('width: '+x+', height: '+y+', pixel density: '+dpr+', path: '+imgPath+', image: '+imgName+', size: '+rwdSize+', type: '+imgExt+', src: '+imgPath+imgName+rwdSize+'.'+imgExt);
+console.log('width: '+x+', height: '+y+', pixel density: '+dpr+', path: '+imgPath+', image: '+imgName+', size: '+rwdSize+', type: '+imgExt+', src: '+imgPath+imgName+rwdSize+'.'+imgExt);
 
 
-    });
+	});
 
 </script>
 <style>
@@ -71,7 +73,7 @@ div{width:100%}
 <body>
 <div>
     <p>Blank Gif Scheme</p>
-    <img class="rwd-img" src="images/images2/blank.gif" width="100%" alt="Photo of Paris featuring the Eiffel Tower" 
+    <img class="rwd-img" src="images/images2/blank.gif" width="100%" height="auto" alt="Photo of Paris featuring the Eiffel Tower" 
 data-image-name="paris-" data-image-path="images/"/>
 <p>Default Image Scheme</p>
 <img class="rwd-img" src="images/images2/default.jpg" width="100%" height="auto" alt="Photo of Paris featuring the Eiffel Tower" 
